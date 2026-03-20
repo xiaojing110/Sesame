@@ -8,7 +8,8 @@ import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.hook.XposedEnv
 
 /**
- * Xposed 框架入口（API 82）
+ * 旧版 Xposed 框架（如 EdXposed、LSPosed < 1.9）入口
+ * 对应新框架 fansirsqi.xposed.sesame.hook.lsp100.HookEntry
  */
 class HookEntry : IXposedHookLoadPackage {
 
