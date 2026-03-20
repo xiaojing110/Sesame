@@ -659,7 +659,7 @@ class ApplicationHook {
                 // 调试模式初始化
                 if (BuildConfig.DEBUG) {
                     try {
-                        startIfNeeded(8080, "ET3vB^#td87sQqKaY*eMUJXP", finalProcessName, General.PACKAGE_NAME)
+                        startIfNeeded(8080, "ET3vB^#td87sQqKaY*eMUJXP", finalProcessName ?: "", General.PACKAGE_NAME)
                         registerBroadcastReceiver(appContext!!)
                     } catch (_: Throwable) { /* ignore */
                     }

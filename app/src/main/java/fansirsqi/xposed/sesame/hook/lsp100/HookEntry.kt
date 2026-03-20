@@ -24,7 +24,7 @@ class HookEntry : XposedModule() {
             XposedEnv.classLoader = param.defaultClassLoader
             XposedEnv.appInfo = param.applicationInfo
             XposedEnv.packageName = param.packageName
-            XposedEnv.processName = processName
+            XposedEnv.processName = processName ?: ""
             customHooker?.loadPackage(param, processName)
             XposedBridge.log("$tag: Hooking ${param.packageName} in process $processName")
         } catch (e: Throwable) {
