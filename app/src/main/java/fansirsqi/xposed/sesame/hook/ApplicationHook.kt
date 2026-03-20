@@ -87,7 +87,6 @@ import fansirsqi.xposed.sesame.util.maps.UserMap
 import fansirsqi.xposed.sesame.util.maps.UserMap.currentUid
 import io.github.libxposed.api.XposedInterface
 import io.github.libxposed.api.XposedModuleInterface.PackageLoadedParam
-import io.github.libxposed.api.XposedModuleInterface.PackageReadyParam
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
 import java.lang.AutoCloseable
@@ -150,12 +149,6 @@ class ApplicationHook {
         )
     }
 
-    fun loadPackage(classLoader: ClassLoader, packageName: String, apkPath: String, processName: String) {
-        if (General.PACKAGE_NAME != packageName) return
-        finalProcessName = processName
-        handleHookLogic(classLoader, packageName, apkPath, null)
-    }
-
     fun loadPackageCompat(lpparam: LoadPackageParam) {
         if (General.PACKAGE_NAME != lpparam.packageName) return
         val apkPath: String = (if (lpparam.appInfo != null) lpparam.appInfo.sourceDir else null)!!
@@ -199,12 +192,10 @@ class ApplicationHook {
     }
 
     private fun resolveProcessName(rawParam: Any?) {
-        if (finalProcessName.isNullOrEmpty()) {
-            if (rawParam is LoadPackageParam) {
-                finalProcessName = rawParam.processName
-            } else if (rawParam is PackageLoadedParam) {
-                finalProcessName = processName
-            }
+        if (rawParam is LoadPackageParam) {
+            finalProcessName = rawParam.processName
+        } else if (rawParam is PackageLoadedParam) {
+            finalProcessName = processName
         }
     }
 
@@ -707,7 +698,7 @@ class ApplicationHook {
                 load(userId)
                 updateDay()
 
-                val successMsg = "Loaded SesameTk " + BuildConfig.VERSION_NAME + " [" + BuildConfig.BUILD_API_VERSION + "]✨"
+                val successMsg = "Loaded SesameTk " + BuildConfig.VERSION_NAME + "✨"
                 record(successMsg)
                 show(successMsg)
 

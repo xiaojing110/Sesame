@@ -118,7 +118,6 @@ object DeviceInfoUtil {
             "Android Version" to "${Build.VERSION.RELEASE} (SDK ${Build.VERSION.SDK_INT})",
             "System Version" to "${Build.DISPLAY}",
             "Verify ID" to verifyId,
-            "Build API" to BuildConfig.BUILD_API_VERSION,
             "Build Date" to "${BuildConfig.BUILD_DATE} ${BuildConfig.BUILD_TIME}"
         )
     }

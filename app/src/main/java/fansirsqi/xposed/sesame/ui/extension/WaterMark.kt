@@ -62,7 +62,6 @@ fun WatermarkLayer(
 
         val versionLines = listOf(
             "Ver: ${BuildConfig.VERSION_NAME}.${BuildConfig.VERSION_CODE}",
-            "API: ${BuildConfig.BUILD_API_VERSION}",
             "Build: ${BuildConfig.BUILD_DATE}",
         )
 
