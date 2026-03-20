@@ -25,8 +25,9 @@ lombok = "1.18.42"
 okhttp = "5.3.2"
 jackson = "2.20.1"
 jackson-annotations = "2.20"
-xposed-api = "100"
-xposed-service = "100-1.0.0"
+xposed-api = "101.0.0"
+xposed-interface = "101.0.0"
+xposed-service = "101.0.0"
 
 #noinspection GradleDependency
 jackson-compatible = "2.13.5"
@@ -83,6 +84,9 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }
 
 dexkit = { module = "org.luckypray:dexkit", version.ref = "dexkit" }
+xposed-api = { module = "io.github.libxposed:api", version.ref = "xposed-api" }
+xposed-interface = { module = "io.github.libxposed:interface", version.ref = "xposed-interface" }
+xposed-service = { module = "io.github.libxposed:service", version.ref = "xposed-service" }
 desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "ui-tooling-preview-android" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
