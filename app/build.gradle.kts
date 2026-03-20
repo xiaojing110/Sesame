@@ -189,8 +189,9 @@ dependencies {
     implementation(libs.material)                   // Material Design 组件
     implementation(libs.webkit)                     // WebView 组件
 
-    // Xposed API (新版本 libxposed)
-    compileOnly(libs.xposed.api)                // Xposed API 101 (compile-only)
+    // Xposed API (新版本 libxposed API 101)
+    compileOnly(libs.xposed.api)                // Xposed API 101 (no-arg XposedModule constructor)
+    compileOnly(files("libs/api-100.aar"))       // Xposed API 100 (1-arg XposedModule constructor, API 89/100 兼容)
     implementation(libs.xposed.service)          // Xposed 服务 (传递依赖 interface)
 
     // Xposed API 82 (旧版兼容，保留本地jar)

@@ -139,10 +139,22 @@ class ApplicationHook {
     }
 
     // --- 入口方法 ---
+    /**
+     * API 101 入口 (defaultClassLoader)
+     * 同时兼容 API 89/100 (classLoader)，通过反射自动适配
+     */
     fun loadPackage(lpparam: PackageLoadedParam) {
         if (General.PACKAGE_NAME != lpparam.packageName) return
+        // API 101: defaultClassLoader, API 89/100: classLoader
+        val loader: ClassLoader = try {
+            lpparam.defaultClassLoader
+        } catch (_: NoSuchMethodError) {
+            // 回退到 API 89/100 的 classLoader
+            val method = lpparam.javaClass.getMethod("getClassLoader")
+            method.invoke(lpparam) as ClassLoader
+        }
         handleHookLogic(
-            lpparam.defaultClassLoader,
+            loader,
             lpparam.packageName,
             lpparam.applicationInfo.sourceDir,
             lpparam

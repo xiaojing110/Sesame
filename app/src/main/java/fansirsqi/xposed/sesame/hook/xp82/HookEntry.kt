@@ -8,9 +8,13 @@ import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.hook.XposedEnv
 
 /**
+ * ⚠️ 已废弃 (Deprecated) - 仅作为旧版框架最后兜底
  * 旧版 Xposed 框架（如 EdXposed、LSPosed < 1.9）入口
- * 对应新框架 fansirsqi.xposed.sesame.hook.lsp100.HookEntry
+ * 新版本请使用:
+ *   - API 89/100: fansirsqi.xposed.sesame.hook.lsp89.HookEntry
+ *   - API 101:    fansirsqi.xposed.sesame.hook.lsp100.HookEntry
  */
+@Deprecated("API 82 已废弃，请升级到 LSPosed 1.9+ (API 89+)")
 class HookEntry : IXposedHookLoadPackage {
 
     private val tag = "Xp82Entry"
