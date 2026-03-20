@@ -191,7 +191,8 @@ dependencies {
 
     // Xposed API (新版本 libxposed)
     compileOnly(libs.xposed.api)                // Xposed API 101 (compile-only)
-    implementation(libs.xposed.service)          // Xposed 服务 (传递依赖 interface)
+    implementation(libs.xposed.iface)            // Xposed 模块接口
+    implementation(libs.xposed.service)          // Xposed 服务
 
     // Xposed API 82 (旧版兼容，保留本地jar)
     compileOnly(files("libs/api-82.jar"))        // Xposed API 82 (旧版 LSPosed/EdXposed 兼容)
