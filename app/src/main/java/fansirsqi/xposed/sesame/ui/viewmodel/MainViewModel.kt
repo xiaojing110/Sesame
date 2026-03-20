@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import fansirsqi.xposed.sesame.SesameApplication.Companion.PREFERENCES_KEY
 import fansirsqi.xposed.sesame.entity.UserEntity
 
-import fansirsqi.xposed.sesame.service.ConnectionState
 import fansirsqi.xposed.sesame.service.LsposedServiceManager
 import fansirsqi.xposed.sesame.ui.screen.DeviceInfoUtil
 import fansirsqi.xposed.sesame.util.AssetUtil
@@ -126,6 +125,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val fileStatus = StatusManager.readStatus()
 
         // 2. API 82 模式下不支持 XposedService，仅依赖文件状态
+        val fileStatus = StatusManager.readStatus()
 
         if (fileStatus != null) {
             _moduleStatus.value = ModuleStatus.Activated(
