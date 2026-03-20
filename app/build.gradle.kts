@@ -191,10 +191,11 @@ dependencies {
 
     // Xposed API (新版本 libxposed API 101)
     compileOnly(libs.xposed.api)                // Xposed API 101 (no-arg XposedModule constructor)
+    compileOnly(files("libs/api-100.aar"))       // Xposed API 100 (1-arg XposedModule constructor, API 89/100 兼容)
     implementation(libs.xposed.service)          // Xposed 服务 (传递依赖 interface)
 
-    // Xposed API 82 jar - 仅 compileOnly，提供 IXposedHookLoadPackage 接口供 xp82/HookEntry 兼容 API 89
-    compileOnly(files("libs/api-82.jar"))
+    // Xposed API 82 (旧版兼容，保留本地jar)
+    compileOnly(files("libs/api-82.jar"))        // Xposed API 82 (旧版 LSPosed/EdXposed 兼容)
 
     // 代码生成和工具库
     compileOnly(libs.lombok)                       // Lombok 注解处理器（编译时）
