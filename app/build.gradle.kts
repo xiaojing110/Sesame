@@ -190,28 +190,10 @@ dependencies {
     implementation(libs.webkit)                     // WebView 组件
 
     // 仅编译时依赖 - Xposed 相关
-repositories {
-    maven { url "https://jitpack.io" }          // 如果还没加
-    // 或者直接用 mavenCentral() 如果已经推送过去了，大部分情况 jitpack 更稳
-}
-
-dependencies {
-    // Xposed 传统 API（如果你还需要兼容旧的 api-82）
-    compileOnly(files("libs/api-82.jar"))           // 可以保留或删除，看需求
-
-    // ─────────────── 新的 LibXposed 101 ───────────────
-    // 模块开发者（绝大多数情况用这个）
-    compileOnly "io.github.libxposed:api:101.0.0"
-
-    // 如果你是框架/服务端实现者才需要 implementation（一般模块开发者不需要）
-    // implementation "io.github.libxposed:api:101.0.0"
-
-    // 接口定义（几乎所有模块都需要）
-    implementation "io.github.libxposed:interface:101.0.0"   // 注意：artifactId 变了，不是 interface-100
-
-    // 服务端通信库（新版命名变了，且版本独立）
-    implementation "io.github.libxposed:service:101.0.0"     // 不再是 service-100.1.0.0
-}
+    compileOnly(files("libs/api-82.jar"))          // Xposed API 82
+    compileOnly(files("libs/api-101.aar"))         // Xposed API 101 https://github.com/libxposed/api
+    implementation(files("libs/interface-101.aar")) // Xposed 模块接口 https://github.com/libxposed/api
+    implementation(files("libs/service-101.0.0.aar"))  // https://github.com/libxposed/service  io.github.libxposed:service:101.0.0
 
     // 代码生成和工具库
     compileOnly(libs.lombok)                       // Lombok 注解处理器（编译时）
