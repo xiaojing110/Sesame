@@ -85,7 +85,7 @@ jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations
 
 dexkit = { module = "org.luckypray:dexkit", version.ref = "dexkit" }
 xposed-api = { module = "io.github.libxposed:api", version.ref = "xposed-api" }
-xposed-iface = { module = "io.github.libxposed:interface", version.ref = "xposed-interface" }
+xposed-interface = { module = "io.github.libxposed:interface", version.ref = "xposed-interface" }
 xposed-service = { module = "io.github.libxposed:service", version.ref = "xposed-service" }
 desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "ui-tooling-preview-android" }
