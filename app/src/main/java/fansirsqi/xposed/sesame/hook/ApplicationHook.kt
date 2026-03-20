@@ -142,7 +142,7 @@ class ApplicationHook {
     fun loadPackage(lpparam: PackageLoadedParam) {
         if (General.PACKAGE_NAME != lpparam.packageName) return
         handleHookLogic(
-            lpparam.defaultClassLoader,
+            lpparam.classLoader,
             lpparam.packageName,
             lpparam.applicationInfo.sourceDir,
             lpparam

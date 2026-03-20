@@ -189,13 +189,11 @@ dependencies {
     implementation(libs.material)                   // Material Design 组件
     implementation(libs.webkit)                     // WebView 组件
 
-    // Xposed API (新版本 libxposed)
-    compileOnly(libs.xposed.api)                // Xposed API 101 (compile-only)
-    implementation(libs.xposed.interface)        // Xposed 模块接口
-    implementation(libs.xposed.service)          // Xposed 服务
-
-    // Xposed API 82 (旧版兼容，保留本地jar)
-    compileOnly(files("libs/api-82.jar"))        // Xposed API 82 (旧版 LSPosed/EdXposed 兼容)
+    // 仅编译时依赖 - Xposed 相关
+    compileOnly(files("libs/api-82.jar"))          // Xposed API 82
+    compileOnly(files("libs/api-100.aar"))         // Xposed API 100 https://github.com/libxposed/api
+    implementation(files("libs/interface-100.aar")) // Xposed 模块接口 https://github.com/libxposed/api
+    implementation(files("libs/service-100-1.0.0.aar"))  // https://github.com/libxposed/service
 
     // 代码生成和工具库
     compileOnly(libs.lombok)                       // Lombok 注解处理器（编译时）
