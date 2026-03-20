@@ -62,6 +62,7 @@ fun ModuleStatusCard(
                         Column(Modifier.padding(start = 20.dp)) {
                             Text(text = "Activated", style = MaterialTheme.typography.titleMedium)
                             Text(text = "Version: ${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE}", style = MaterialTheme.typography.bodyMedium)
+                            Text(text = "Build: ${BuildConfig.BUILD_API_VERSION}", style = MaterialTheme.typography.bodyMedium)
                             Spacer(Modifier.height(4.dp))
                             Text(text = "by ${status.frameworkName} ${status.frameworkVersion} API ${status.apiVersion}", style = MaterialTheme.typography.bodySmall)
                         }
@@ -71,6 +72,7 @@ fun ModuleStatusCard(
                         Icon(Icons.Outlined.Warning, "未激活")
                         Column(Modifier.padding(start = 20.dp)) {
                             Text(text = "模块未激活", style = MaterialTheme.typography.titleMedium)
+                            Text(text = "Build: ${BuildConfig.BUILD_API_VERSION}", style = MaterialTheme.typography.bodyMedium)
                             Spacer(Modifier.height(4.dp))
                             Text(text = "请尝试在Ls/Xposed中激活", style = MaterialTheme.typography.bodyMedium)
                             Text(text = "点击展开帮助", style = MaterialTheme.typography.bodySmall)

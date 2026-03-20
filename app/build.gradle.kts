@@ -96,14 +96,17 @@ android {
         create("api82") {
             dimension = "api"
             applicationIdSuffix = ".xp82"
+            buildConfigField("String", "BUILD_API_VERSION", "\"API 82 (Xposed)\"")
         }
         create("api100") {
             dimension = "api"
             applicationIdSuffix = ".lsp100"
+            buildConfigField("String", "BUILD_API_VERSION", "\"API 100 (LSPosed)\"")
         }
         create("api101") {
             dimension = "api"
             applicationIdSuffix = ".lsp101"
+            buildConfigField("String", "BUILD_API_VERSION", "\"API 101 (LSPosed)\"")
         }
     }
 
