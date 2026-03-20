@@ -27,7 +27,7 @@ import fansirsqi.xposed.sesame.data.Status.Companion.save
 import fansirsqi.xposed.sesame.entity.AlipayVersion
 import fansirsqi.xposed.sesame.hook.Toast.show
 import fansirsqi.xposed.sesame.hook.TokenHooker.start
-import fansirsqi.xposed.sesame.hook.XposedEnv.processName
+
 import fansirsqi.xposed.sesame.hook.internal.AlipayMiniMarkHelper
 import fansirsqi.xposed.sesame.hook.internal.LocationHelper
 import fansirsqi.xposed.sesame.hook.internal.AuthCodeHelper
@@ -85,8 +85,7 @@ import fansirsqi.xposed.sesame.util.StatusManager.updateStatus
 import fansirsqi.xposed.sesame.util.TimeUtil
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import fansirsqi.xposed.sesame.util.maps.UserMap.currentUid
-import io.github.libxposed.api.XposedInterface
-import io.github.libxposed.api.XposedModuleInterface.PackageLoadedParam
+
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
 import java.lang.AutoCloseable
@@ -97,7 +96,6 @@ import java.util.Calendar
 import kotlin.concurrent.Volatile
 
 class ApplicationHook {
-    var xposedInterface: XposedInterface? = null
 
     private object BroadcastActions {
         const val RESTART: String = "com.eg.android.AlipayGphone.sesame.restart"
@@ -136,17 +134,6 @@ class ApplicationHook {
                 }
             }
         }
-    }
-
-    // --- 入口方法 ---
-    fun loadPackage(lpparam: PackageLoadedParam) {
-        if (General.PACKAGE_NAME != lpparam.packageName) return
-        handleHookLogic(
-            lpparam.classLoader,
-            lpparam.packageName,
-            lpparam.applicationInfo.sourceDir,
-            lpparam
-        )
     }
 
     fun loadPackageCompat(lpparam: LoadPackageParam) {
@@ -194,8 +181,6 @@ class ApplicationHook {
     private fun resolveProcessName(rawParam: Any?) {
         if (rawParam is LoadPackageParam) {
             finalProcessName = rawParam.processName
-        } else if (rawParam is PackageLoadedParam) {
-            finalProcessName = processName
         }
     }
 

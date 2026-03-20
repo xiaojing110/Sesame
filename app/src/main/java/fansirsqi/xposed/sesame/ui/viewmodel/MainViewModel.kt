@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import fansirsqi.xposed.sesame.SesameApplication.Companion.PREFERENCES_KEY
 import fansirsqi.xposed.sesame.entity.UserEntity
-import fansirsqi.xposed.sesame.service.ConnectionState
+
 import fansirsqi.xposed.sesame.service.LsposedServiceManager
 import fansirsqi.xposed.sesame.ui.screen.DeviceInfoUtil
 import fansirsqi.xposed.sesame.util.AssetUtil
@@ -124,26 +124,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         // 1. 尝试从文件读取状态 (兼容 LSPatch)
         val fileStatus = StatusManager.readStatus()
 
-        // 2. 尝试从 Service 读取状态 (兼容 LSPosed)
-        val lspState = LsposedServiceManager.connectionState
+        // 2. API 82 模式下不支持 XposedService，仅依赖文件状态
+        val fileStatus = StatusManager.readStatus()
 
-        if (lspState is ConnectionState.Connected) {
-            // 优先信赖 Service，因为它是实时的且信息全
-            _moduleStatus.value = ModuleStatus.Activated(
-                frameworkName = lspState.service.frameworkName,
-                frameworkVersion = lspState.service.frameworkVersion,
-                apiVersion = lspState.service.apiVersion
-            )
-        } else if (fileStatus != null) {
-            // 如果 Service 没连上，但文件里有状态（说明 LSPatch 生效并写入了）
-            // 可选：检查时间戳，如果太久远可能意味着目标应用没在运行
+        if (fileStatus != null) {
             _moduleStatus.value = ModuleStatus.Activated(
                 frameworkName = fileStatus.framework,
                 frameworkVersion = "",
-                apiVersion = -1
+                apiVersion = 82
             )
         } else {
-            // 啥都没有
             _moduleStatus.value = ModuleStatus.NotActivated
         }
     }
