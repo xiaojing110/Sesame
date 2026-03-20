@@ -28,6 +28,7 @@ import fansirsqi.xposed.sesame.entity.AlipayVersion
 import fansirsqi.xposed.sesame.hook.Toast.show
 import fansirsqi.xposed.sesame.hook.TokenHooker.start
 
+import fansirsqi.xposed.sesame.hook.XposedEnv.processName
 import fansirsqi.xposed.sesame.hook.internal.AlipayMiniMarkHelper
 import fansirsqi.xposed.sesame.hook.internal.LocationHelper
 import fansirsqi.xposed.sesame.hook.internal.AuthCodeHelper
