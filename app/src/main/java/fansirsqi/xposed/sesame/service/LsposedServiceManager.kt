@@ -3,7 +3,8 @@ package fansirsqi.xposed.sesame.service
 import fansirsqi.xposed.sesame.util.Log
 
 /**
- * LsposedServiceManager stub — API 52 mode, no XposedService support.
+ * LsposedServiceManager stub — API 100 service removed.
+ * 使用 API 82 时不需要此服务。
  */
 object LsposedServiceManager {
 
@@ -16,7 +17,7 @@ object LsposedServiceManager {
         get() = false
 
     fun init() {
-        Log.record(TAG, "API 52 mode — LsposedService not available.")
+        Log.record(TAG, "API 82 mode — LsposedService not available.")
     }
 
     fun addConnectionListener(listener: (ConnectionState) -> Unit) {

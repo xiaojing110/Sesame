@@ -122,13 +122,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * 刷新模块框架激活状态
      */
     private fun refreshModuleFrameworkStatus() {
+        // 1. 尝试从文件读取状态 (兼容 LSPatch)
         val fileStatus = StatusManager.readStatus()
+
+        // 2. API 82 模式下不支持 XposedService，仅依赖文件状态
 
         if (fileStatus != null) {
             _moduleStatus.value = ModuleStatus.Activated(
                 frameworkName = fileStatus.framework,
                 frameworkVersion = "",
-                apiVersion = 52
+                apiVersion = 82
             )
         } else {
             _moduleStatus.value = ModuleStatus.NotActivated
