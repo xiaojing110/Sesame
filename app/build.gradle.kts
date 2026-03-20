@@ -91,6 +91,22 @@ android {
         }
     }
 
+    flavorDimensions += "api"
+    productFlavors {
+        create("api82") {
+            dimension = "api"
+            applicationIdSuffix = ".xp82"
+        }
+        create("api100") {
+            dimension = "api"
+            applicationIdSuffix = ".lsp100"
+        }
+        create("api101") {
+            dimension = "api"
+            applicationIdSuffix = ".lsp101"
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             isDebuggable = true
@@ -113,6 +129,15 @@ android {
         getByName("main") {
             jniLibs.srcDirs("src/main/jniLibs")
         }
+        getByName("api82") {
+            java.srcDirs("src/api82/java")
+        }
+        getByName("api100") {
+            java.srcDirs("src/api100/java")
+        }
+        getByName("api101") {
+            java.srcDirs("src/api101/java")
+        }
     }
     val cmakeFile = file("src/main/cpp/CMakeLists.txt")
     if (!isCIBuild && cmakeFile.exists()) {
@@ -130,7 +155,8 @@ android {
         variant.outputs.all {
             val output = this
             val abiName = output.filters.find { it.filterType == "ABI" }?.identifier ?: "universal"
-            val fileName = "Sesame-TK-${abiName}-${variant.versionName}.apk"
+            val flavorName = variant.flavorName
+            val fileName = "Sesame-TK-${flavorName}-${abiName}-${variant.versionName}.apk"
             (output as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = fileName
         }
     }
@@ -189,11 +215,16 @@ dependencies {
     implementation(libs.material)                   // Material Design 组件
     implementation(libs.webkit)                     // WebView 组件
 
-    // 仅编译时依赖 - Xposed 相关
-    compileOnly(files("libs/api-82.jar"))          // Xposed API 82
-    compileOnly(files("libs/api-100.aar"))         // Xposed API 100 https://github.com/libxposed/api
-    implementation(files("libs/interface-100.aar")) // Xposed 模块接口 https://github.com/libxposed/api
-    implementation(files("libs/service-100-1.0.0.aar"))  // https://github.com/libxposed/service
+    // Xposed API 依赖 (按 flavor 区分)
+    "api82CompileOnly"(files("libs/api-82.jar"))
+    "api100CompileOnly"(files("libs/api-82.jar"))
+    "api100CompileOnly"(files("libs/api-100.aar"))
+    "api100Implementation"(files("libs/interface-100.aar"))
+    "api100Implementation"(files("libs/service-100-1.0.0.aar"))
+    "api101CompileOnly"(files("libs/api-82.jar"))
+    "api101CompileOnly"(files("libs/api-101.aar"))
+    "api101Implementation"(files("libs/interface-100.aar"))
+    "api101Implementation"(files("libs/service-100-1.0.0.aar"))
 
     // 代码生成和工具库
     compileOnly(libs.lombok)                       // Lombok 注解处理器（编译时）
