@@ -140,11 +140,10 @@ class ApplicationHook {
     }
 
     // --- 入口方法 ---
-    fun loadPackage(lpparam: PackageLoadedParam, processName: String? = null) {
+    fun loadPackage(lpparam: PackageLoadedParam) {
         if (General.PACKAGE_NAME != lpparam.packageName) return
-        processName?.let { finalProcessName = it }
         handleHookLogic(
-            lpparam.defaultClassLoader,
+            lpparam.classLoader,
             lpparam.packageName,
             lpparam.applicationInfo.sourceDir,
             lpparam
@@ -197,9 +196,7 @@ class ApplicationHook {
         if (rawParam is LoadPackageParam) {
             finalProcessName = rawParam.processName
         } else if (rawParam is PackageLoadedParam) {
-            if (finalProcessName.isNullOrEmpty()) {
-                finalProcessName = XposedEnv.processName
-            }
+            finalProcessName = XposedEnv.processName
         }
     }
 
@@ -659,7 +656,7 @@ class ApplicationHook {
                 // 调试模式初始化
                 if (BuildConfig.DEBUG) {
                     try {
-                        startIfNeeded(8080, "ET3vB^#td87sQqKaY*eMUJXP", finalProcessName, General.PACKAGE_NAME)
+                        startIfNeeded(8080, "ET3vB^#td87sQqKaY*eMUJXP", processName, General.PACKAGE_NAME)
                         registerBroadcastReceiver(appContext!!)
                     } catch (_: Throwable) { /* ignore */
                     }
