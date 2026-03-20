@@ -1,24 +1,33 @@
 pluginManagement {
     repositories {
-        google()
         mavenCentral()
         gradlePluginPortal()
+        google()
+    }
+    plugins {
+        kotlin("jvm") version "2.2.21"  // 使用与libs.versions.toml中kotlin-plugin相同的版本
     }
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }  // 必须有，用于 LibXposed
+        maven { url = uri("https://jitpack.io") }
+        maven("https://maven.aliyun.com/repository/spring")
+        mavenLocal {
+            content {
+                includeGroup("io.github.libxposed")
+            }
+        }
+    }
+    versionCatalogs {
+        create("libs")
     }
 }
-
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
-
-rootProject.name = "Sesame"
 include(":app")
+
