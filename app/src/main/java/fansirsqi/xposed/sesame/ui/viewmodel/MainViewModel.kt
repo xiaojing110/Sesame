@@ -122,13 +122,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * 刷新模块框架激活状态
      */
     private fun refreshModuleFrameworkStatus() {
+        // 1. 尝试从文件读取状态 (兼容 LSPatch)
         val fileStatus = StatusManager.readStatus()
 
-        if (fileStatus != null) {
+        // 2. 尝试从 Service 读取状态 (兼容 LSPosed)
+        val lspState = LsposedServiceManager.connectionState
+
+        if (lspState is ConnectionState.Connected) {
+            _moduleStatus.value = ModuleStatus.Activated(
+                frameworkName = lspState.service.frameworkName,
+                frameworkVersion = lspState.service.frameworkVersion,
+                apiVersion = lspState.service.apiVersion
+            )
+        } else if (fileStatus != null) {
             _moduleStatus.value = ModuleStatus.Activated(
                 frameworkName = fileStatus.framework,
                 frameworkVersion = "",
-                apiVersion = 52
+                apiVersion = -1
             )
         } else {
             _moduleStatus.value = ModuleStatus.NotActivated

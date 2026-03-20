@@ -17,6 +17,8 @@ import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import io.github.libxposed.api.XposedInterface
+import io.github.libxposed.api.XposedModuleInterface.PackageLoadedParam
 import fansirsqi.xposed.sesame.BuildConfig
 import fansirsqi.xposed.sesame.SesameApplication
 import fansirsqi.xposed.sesame.data.Config
@@ -96,6 +98,7 @@ import java.util.Calendar
 import kotlin.concurrent.Volatile
 
 class ApplicationHook {
+    var xposedInterface: XposedInterface? = null
 
     private object BroadcastActions {
         const val RESTART: String = "com.eg.android.AlipayGphone.sesame.restart"
@@ -134,6 +137,17 @@ class ApplicationHook {
                 }
             }
         }
+    }
+
+    // --- 入口方法 ---
+    fun loadPackage(lpparam: PackageLoadedParam) {
+        if (General.PACKAGE_NAME != lpparam.packageName) return
+        handleHookLogic(
+            lpparam.classLoader,
+            lpparam.packageName,
+            lpparam.applicationInfo.sourceDir,
+            lpparam
+        )
     }
 
     fun loadPackageCompat(lpparam: LoadPackageParam) {
@@ -181,6 +195,8 @@ class ApplicationHook {
     private fun resolveProcessName(rawParam: Any?) {
         if (rawParam is LoadPackageParam) {
             finalProcessName = rawParam.processName
+        } else if (rawParam is PackageLoadedParam) {
+            finalProcessName = XposedEnv.processName
         }
     }
 
